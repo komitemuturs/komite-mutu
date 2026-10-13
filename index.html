@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMKP - Rumah Sakit Paru Sumatera Barat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        hospital: {
+                            blue: '#0284c7',
+                            dark: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-medical-600 to-hospital-blue rounded-xl flex items-center justify-center text-white shadow-md shadow-medical-500/20">
+                        <i class="fa-solid fa-lungs text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-medical-600">Komite PMKP</span>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">RS Paru Sumatera Barat</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="#beranda" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-medical-600 hover:bg-medical-50 transition active">Beranda</a>
+                    <a href="#profil" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-medical-600 hover:bg-medical-50 transition">Profil PMKP</a>
+                    <a href="#indikator" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-medical-600 hover:bg-medical-50 transition">Indikator Mutu</a>
+                    <a href="#skp" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-medical-600 hover:bg-medical-50 transition">6 SKP</a>
+                    <a href="#laporan" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-medical-600 hover:bg-medical-700 shadow-md shadow-medical-600/20 transition flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Lapor Insiden
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-4 space-y-2">
+            <a href="#beranda" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-medical-50 hover:text-medical-600">Beranda</a>
+            <a href="#profil" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-medical-50 hover:text-medical-600">Profil PMKP</a>
+            <a href="#indikator" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-medical-50 hover:text-medical-600">Indikator Mutu</a>
+            <a href="#skp" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-medical-50 hover:text-medical-600">6 SKP</a>
+            <a href="#laporan" class="block text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-medical-600 hover:bg-medical-700 shadow-sm">Lapor Insiden Keselamatan</a>
+        </div>
+    </header>
+
+    <section id="beranda" class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-hospital-dark to-slate-900 text-white py-20 lg:py-28">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-medical-500/20 text-medical-400 border border-medical-500/30">
+                        <i class="fa-solid fa-shield-heart"></i> Komitmen Mutu & Keselamatan Pasien
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Peningkatan Mutu & <span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-400 to-hospital-blue">Keselamatan Pasien</span>
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                        Rumah Sakit Paru Sumatera Barat berkomitmen tinggi memberikan pelayanan kesehatan paru berkualitas prima dengan mengutamakan keselamatan, kenyamanan, dan kepuasan pasien.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#indikator" class="px-6 py-3.5 rounded-xl font-semibold text-white bg-medical-600 hover:bg-medical-500 shadow-lg shadow-medical-600/30 transition flex items-center justify-center gap-2">
+                            <span>Lihat Indikator Mutu</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#laporan" class="px-6 py-3.5 rounded-xl font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-pen text-medical-400"></i> Lapor Insiden Keselamatan
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-800/80 backdrop-blur-xl border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+                        <div class="absolute -top-3 -right-3 bg-medical-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            AKREDITASI PARIPURNA
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-white">
+                            <i class="fa-solid fa-hospital text-medical-400"></i> Informasi Layanan PMKP
+                        </h3>
+                        <ul class="space-y-4 text-slate-300 text-sm">
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-medical-500/20 text-medical-400 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
+                                <span><strong>Alamat:</strong> Jl. Dr. M. Djamil No.110, Lubuk Alung, Kab. Padang Pariaman, Sumatera Barat.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-medical-500/20 text-medical-400 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
+                                <span><strong>Fokus Utama:</strong> Keselamatan pasien paru, pencegahan infeksi nosokomial, dan kepuasan layanan pernapasan.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-medical-500/20 text-medical-400 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-check text-xs"></i></div>
+                                <span><strong>Budaya Keselamatan:</strong> Pelaporan insiden tanpa menghakimi (non-blaming culture) untuk perbaikan berkelanjutan.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white border-b border-slate-100 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-4 rounded-2xl bg-medical-50/50 border border-medical-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-medical-600 mb-1">100%</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-600">Identifikasi Pasien Tepat</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-sky-600 mb-1">98.5%</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-600">Kepuasan Pasien Rawat Inap</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-medical-50/50 border border-medical-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-medical-600 mb-1">&lt; 15 mnt</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-600">Waktu Tunggu Rawat Jalan</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-sky-600 mb-1">0</div>
+                    <div class="text-xs sm:text-sm font-medium text-slate-600">Kejadian Sentinel (Zero Harm)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="profil" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-medical-600 font-semibold text-sm uppercase tracking-wider">Tentang Komite</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-4">Profil Peningkatan Mutu & Keselamatan Pasien</h2>
+                <p class="text-slate-600 text-base">Komite PMKP RS Paru Sumatera Barat dibentuk untuk mengawal mutu pelayanan medis dan menegakkan standar keselamatan pasien secara konsisten.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Visi -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-medical-100 text-medical-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Visi PMKP</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Menjadikan Rumah Sakit Paru Sumatera Barat sebagai pusat pelayanan kesehatan pernapasan terpercaya yang bermutu tinggi dan mengutamakan keselamatan pasien di Sumatera Barat.
+                    </p>
+                </div>
+
+                <!-- Misi -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Misi Utama</h3>
+                    <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                        <li>• Menerapkan standar mutu nasional di seluruh unit pelayanan.</li>
+                        <li>• Membudayakan 6 Sasaran Keselamatan Pasien secara konsisten.</li>
+                        <li>• Melakukan evaluasi berkala dan perbaikan berkelanjutan (Continuous Quality Improvement).</li>
+                    </ul>
+                </div>
+
+                <!-- Kebijakan -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                        <i class="fa-solid fa-book-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Kebijakan Mutu</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Setiap staf rumah sakit wajib melaporkan insiden keselamatan pasien tanpa rasa takut serta berpartisipasi aktif dalam audit mutu klinik dan manajerial.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="indikator" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                <div>
+                    <span class="text-medical-600 font-semibold text-sm uppercase tracking-wider">Capaian Kinerja</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">Indikator Nasional Mutu (INM)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">Grafik pemantauan capaian indikator mutu RS Paru Sumatera Barat Periode Tahun Berjalan.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-medical-50 text-medical-700 text-xs font-semibold rounded-lg border border-medical-200">
+                        <span class="w-2 h-2 rounded-full bg-medical-500"></span> Target Tercapai
+                    </span>
+                </div>
+            </div>
+
+            <!-- Grid Chart and Indicators Summary -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-inner">
+                    <div class="h-80 sm:h-96 w-full">
+                        <canvas id="qualityChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm">Kepatuhan Identifikasi Pasien</h4>
+                            <p class="text-xs text-slate-500">Standar: 100%</p>
+                        </div>
+                        <span class="px-3 py-1 bg-medical-100 text-medical-800 text-xs font-bold rounded-full">100%</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm">Waktu Tanggap Pelayanan Dokter</h4>
+                            <p class="text-xs text-slate-500">Standar: &le; 15 Menit</p>
+                        </div>
+                        <span class="px-3 py-1 bg-medical-100 text-medical-800 text-xs font-bold rounded-full">98.2%</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm">Kepatuhan Kebersihan Tangan (Hand Hygiene)</h4>
+                            <p class="text-xs text-slate-500">Standar: &ge; 85%</p>
+                        </div>
+                        <span class="px-3 py-1 bg-medical-100 text-medical-800 text-xs font-bold rounded-full">92.5%</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm">Kepatuhan Penggunaan Formularium Nasional</h4>
+                            <p class="text-xs text-slate-500">Standar: &ge; 80%</p>
+                        </div>
+                        <span class="px-3 py-1 bg-medical-100 text-medical-800 text-xs font-bold rounded-full">95.0%</span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm">Kepuasan Pasien & Keluarga</h4>
+                            <p class="text-xs text-slate-500">Standar: &ge; 76.61%</p>
+                        </div>
+                        <span class="px-3 py-1 bg-medical-100 text-medical-800 text-xs font-bold rounded-full">88.4%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skp" class="py-20 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-medical-600 font-semibold text-sm uppercase tracking-wider">Standar Internasional</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-4">6 Sasaran Keselamatan Pasien (SKP)</h2>
+                <p class="text-slate-600 text-base">Penerapan standar operasional ketat untuk menjamin keselamatan mutlak bagi seluruh pasien di RS Paru Sumatera Barat.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- SKP 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        01
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Ketepatan Identifikasi Pasien</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Menggunakan minimal dua identitas (nama lengkap dan tanggal lahir / nomor rekam medis) sebelum pemberian obat, darah, atau tindakan medis.
+                    </p>
+                </div>
+
+                <!-- SKP 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        02
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Komunikasi Efektif</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Menerapkan metode SBAR (Situation, Background, Assessment, Recommendation) dan teknik Tulis-Baca-Konfirmasi (TBAK) saat pelaporan kondisi pasien kritis.
+                    </p>
+                </div>
+
+                <!-- SKP 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        03
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Keamanan Obat High-Alert</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Pengelolaan ketat obat-obatan yang perlu diwaspadai (elektrolit konsentrat, LASA) dengan pelabelan khusus ganda (double-check).
+                    </p>
+                </div>
+
+                <!-- SKP 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        04
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Tepat-Lokasi & Prosedur</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Melakukan penandaan area operasi (surgical site marking), verifikasi pra-prosedur, dan prosedur Time-Out sebelum tindakan invasif/bedah.
+                    </p>
+                </div>
+
+                <!-- SKP 5 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        05
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Pengurangan Risiko Infeksi</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Kepatuhan kebersihan tangan (6 langkah 5 momen cuci tangan) sesuai standar WHO untuk menekan angka infeksi terkait layanan kesehatan (HAIs).
+                    </p>
+                </div>
+
+                <!-- SKP 6 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+                    <div class="w-12 h-12 bg-medical-50 text-medical-600 rounded-2xl flex items-center justify-center font-bold text-lg mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                        06
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Pengurangan Risiko Pasien Jatuh</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Penilaian risiko jatuh secara berkala (Morse Fall Scale / Ontario Modified) serta pemasangan gelang risiko jatuh warna kuning pada pasien rentan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="laporan" class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-hospital-dark rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-medical-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-2xl mb-8">
+                    <span class="text-medical-400 font-semibold text-xs uppercase tracking-wider">Sistem Pelaporan Internal</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold mt-2">Formulir Laporan Insiden & Pengaduan Mutu</h2>
+                    <p class="text-slate-300 text-sm mt-2">
+                        Laporkan setiap Kejadian Nyaris Cedera (KNC), Kejadian Tidak Diharapkan (KTD), atau saran perbaikan mutu secara rahasia. Data Anda terlindungi untuk peningkatan keselamatan bersama.
+                    </p>
+                </div>
+
+                <form id="incident-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Nama Pelapor / Unit Kerja *</label>
+                            <input type="text" id="reporter-name" required placeholder="Contoh: Perawat Ruang Paru / Keluarga Pasien" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-medical-500 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Jenis Insiden / Masalah *</label>
+                            <select id="incident-type" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-medical-500 text-sm">
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="KNC">Kejadian Nyaris Cedera (KNC)</option>
+                                <option value="KTC">Kejadian Tidak Cedera (KTC)</option>
+                                <option value="KTD">Kejadian Tidak Diharapkan (KTD)</option>
+                                <option value="Sentinel">Kejadian Sentinel</option>
+                                <option value="Saran">Saran & Peningkatan Mutu Layanan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Tanggal & Waktu Kejadian *</label>
+                        <input type="datetime-local" id="incident-date" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-medical-500 text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Kronologi / Deskripsi Singkat Kejadian *</label>
+                        <textarea id="incident-desc" rows="4" required placeholder="Jelaskan kronologi kejadian secara objektif tanpa menyudutkan pihak lain..." class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-medical-500 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl font-semibold text-white bg-medical-600 hover:bg-medical-500 shadow-lg shadow-medical-600/30 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Laporan Rahasia
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-medical-600 rounded-xl flex items-center justify-center text-white">
+                            <i class="fa-solid fa-lungs text-xl"></i>
+                        </div>
+                        <span class="text-white font-bold text-base">RS Paru Sumatera Barat</span>
+                    </div>
+                    <p class="text-sm text-slate-400">
+                        Pusat layanan kesehatan paru terdepan di Sumatera Barat dengan komitmen penuh terhadap peningkatan mutu dan keselamatan pasien.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Kontak & Lokasi</h4>
+                    <p class="text-sm mb-2"><i class="fa-solid fa-location-dot text-medical-500 mr-2"></i> Jl. Dr. M. Djamil No.110, Lubuk Alung, Kab. Padang Pariaman, Sumatera Barat.</p>
+                    <p class="text-sm mb-2"><i class="fa-solid fa-phone text-medical-500 mr-2"></i> (0751) 96688</p>
+                    <p class="text-sm"><i class="fa-solid fa-envelope text-medical-500 mr-2"></i> info@rsparusumbar.co.id</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Jam Layanan PMKP</h4>
+                    <p class="text-sm mb-2">Senin - Kamis: 08.00 - 15.00 WIB</p>
+                    <p class="text-sm mb-2">Jumat: 08.00 - 11.30 WIB</p>
+                    <p class="text-sm text-medical-400 font-semibold mt-3">Layanan Gawat Darurat & Pelaporan: 24 Jam</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 Komite PMKP Rumah Sakit Paru Sumatera Barat. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#beranda" class="hover:text-medical-400 transition">Kebijakan Privasi</a>
+                    <a href="#beranda" class="hover:text-medical-400 transition">Standar Pelayanan</a>
+                    <a href="#beranda" class="hover:text-medical-400 transition">Kontak Kami</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl text-center transform transition-all">
+            <div id="modal-icon" class="w-16 h-16 bg-medical-100 text-medical-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-slate-900 mb-2">Laporan Berhasil Dikirim</h3>
+            <p id="modal-message" class="text-slate-600 text-sm mb-6">Terima kasih. Laporan insiden Anda telah diterima oleh Tim PMKP dan akan segera ditindaklanjuti secara rahasia.</p>
+            <button id="modal-close-btn" class="w-full py-3 bg-medical-600 hover:bg-medical-700 text-white font-semibold rounded-xl shadow-md transition">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Modal Elements
+        const modal = document.getElementById('custom-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        modalCloseBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // Incident Form Submission
+        const incidentForm = document.getElementById('incident-form');
+        incidentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            modal.classList.remove('hidden');
+            incidentForm.reset();
+        });
+
+        // Initialize Quality Indicators Chart
+        window.addEventListener('load', () => {
+            const ctx = document.getElementById('qualityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Identifikasi Pasien', 'Waktu Tanggap', 'Kebersihan Tangan', 'Formularium Nasional', 'Kepuasan Pasien'],
+                    datasets: [{
+                        label: 'Capaian Aktual (%)',
+                        data: [100, 98.2, 92.5, 95.0, 88.4],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(14, 165, 233, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(14, 165, 233, 0.8)',
+                            'rgba(16, 185, 129, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(5, 150, 105)',
+                            'rgb(2, 132, 199)',
+                            'rgb(5, 150, 105)',
+                            'rgb(2, 132, 199)',
+                            'rgb(5, 150, 105)'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(226, 232, 240, 0.6)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
